@@ -1,0 +1,51 @@
+{
+  "name": "zk-transfer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "circom:compile": "circom circuits/balance_check.circom --r1cs --wasm --sym -o build/",
+    "circom:setup": "snarkjs powersoftau new bn128 12 pot12_0000.ptau && snarkjs powersoftau contribute pot12_0000.ptau pot12_0001.ptau --name='First contribution' -v && snarkjs powersoftau prepare phase2 pot12_0001.ptau pot12_final.ptau -v",
+    "circom:generate-keys": "snarkjs groth16 setup build/balance_check.r1cs pot12_final.ptau balance_check_0000.zkey && snarkjs zkey contribute balance_check_0000.zkey balance_check_0001.zkey --name='1st Contributor Name' -v && snarkjs zkey export verificationkey balance_check_0001.zkey verification_key.json"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1",
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
+    "bcryptjs": "^2.4.3",
+    "circomlib": "^2.0.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.0.0",
+    "crypto": "^1.0.1",
+    "ffjavascript": "^0.2.60",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.294.0",
+    "next": "^15.4.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "snarkjs": "^0.7.3",
+    "tailwind-merge": "^2.1.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8",
+    "prisma": "^5.7.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5"
+  }
+}
